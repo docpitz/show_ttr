@@ -1,6 +1,9 @@
-# show_ttr
+# Mobile client for myTischtennis.de
 
-A new Flutter project.
+A new client for myTischtennis.de, written in Flutter/Dart for iOS and Android.
+Currently it is only a prototype for demonstration and is currently used to learn flutter.
+
+So don't be too strict with mistakes ;-)
 
 ## Getting Started
 
