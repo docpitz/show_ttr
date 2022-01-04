@@ -33,6 +33,32 @@ class _PlayerDetailState extends State<PlayerDetailPage>
       List.from(Competition.items[Random.secure().nextInt(3)]);
   FlChartDoubleTapHelper chartDoubleTapHelper = FlChartDoubleTapHelper();
 
+  _PlayerDetailState() {
+    final competitionsItemsChart = List.from(competitionsItems);
+
+    int endScore = competitionsItemsChart[0].pointBevor +
+        competitionsItemsChart[0].pointWinning;
+    competitionsItemsChart.add(
+      Competition(
+        competitionsItemsChart.length,
+        "",
+        "",
+        "",
+        "",
+        "",
+        0,
+        0,
+        endScore,
+      ),
+    );
+
+    competitionsItemsChart.sort((a, b) => a.number.compareTo(b.number));
+
+    _mappedItems = competitionsItemsChart
+        .map((e) => FlSpot(e.number.toDouble(), e.pointBevor.toDouble()))
+        .toList();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -66,85 +92,65 @@ class _PlayerDetailState extends State<PlayerDetailPage>
 
   @override
   Widget build(BuildContext context) {
-    final competitionsItemsChart = List.from(competitionsItems);
-
-    int endScore = competitionsItemsChart[0].pointBevor +
-        competitionsItemsChart[0].pointWinning;
-    competitionsItemsChart.add(
-      Competition(
-        competitionsItemsChart.length,
-        "",
-        "",
-        "",
-        "",
-        "",
-        0,
-        0,
-        endScore,
-      ),
-    );
-
-    competitionsItemsChart.sort((a, b) => a.number.compareTo(b.number));
-
-    _mappedItems = competitionsItemsChart
-        .map((e) => FlSpot(e.number.toDouble(), e.pointBevor.toDouble()))
-        .toList();
-
+    
     return _playerDetailPage(context);
   }
 
   Widget _playerDetailPage(BuildContext context) {
     final player = ModalRoute.of(context)!.settings.arguments as Player;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(player.firstname +
-            " " +
-            player.lastname +
-            " (" +
-            player.points.toString() +
-            ")"),
-        actions: [
-          TextButton(
-            onPressed: () {
-              switchChartOnOff();
-            },
-            style: TextButton.styleFrom(
-                primary: Theme.of(context).colorScheme.onPrimary),
-            child: const Text("Chart"),
-          )
-        ],
-      ),
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          return Column(
-            children: [
-              FadeTransition(
-                opacity: _opacityAnimation,
-                child: Visibility(
-                  visible: _showChart,
-                  maintainAnimation: true,
-                  maintainState: true,
-                  child: AnimatedContainer(
-                    curve: Curves.decelerate,
-                    duration: const Duration(milliseconds: 500),
-                    height: _showChart
-                        ? (_maxChart ? constraints.maxHeight - 65 : 200)
-                        : 75,
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 20, 12, 15),
-                        child: _buildTTRChart(context),
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(player.firstname +
+              " " +
+              player.lastname +
+              " (" +
+              player.points.toString() +
+              ")"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                switchChartOnOff();
+              },
+              style: TextButton.styleFrom(
+                  primary: Theme.of(context).colorScheme.onPrimary),
+              child: const Text("Chart"),
+            )
+          ],
+        ),
+        body: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            return Column(
+              children: [
+                FadeTransition(
+                  opacity: _opacityAnimation,
+                  child: Visibility(
+                    visible: _showChart,
+                    maintainAnimation: true,
+                    maintainState: true,
+                    child: AnimatedContainer(
+                      curve: Curves.decelerate,
+                      duration: const Duration(milliseconds: 500),
+                      height: _showChart
+                          ? (_maxChart ? constraints.maxHeight - 65 : 200)
+                          : 75,
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 20, 12, 15),
+                          child: _buildTTRChart(context),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: _buildList(context),
-              ),
-            ],
-          );
-        },
+                Expanded(
+                  child: _buildList(context),
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
