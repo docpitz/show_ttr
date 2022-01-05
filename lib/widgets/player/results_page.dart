@@ -1,6 +1,6 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
+
 import 'package:show_ttr/models/Player.dart';
 import 'package:show_ttr/models/Results.dart';
 import 'package:show_ttr/widgets/player/player_detail_page.dart';
