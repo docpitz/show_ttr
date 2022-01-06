@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:show_ttr/widgets/bottom_navigation/main_bottom_navigation.dart';
 import 'package:show_ttr/widgets/login_page.dart';
-import 'package:show_ttr/widgets/player/results_page.dart';
+import 'package:show_ttr/widgets/result/results_page.dart';
 
 class MainNavigatorRoutes {
   static const String login = "/";

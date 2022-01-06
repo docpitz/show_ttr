@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:show_ttr/widgets/bottom_navigation/main_bottom_navigation_bar.dart';
-import 'package:show_ttr/widgets/bottom_navigation/my_club/my_club_navigator.dart';
-import 'package:show_ttr/widgets/bottom_navigation/my_result/my_result_navigator.dart';
+import 'package:show_ttr/widgets/bottom_navigation/main_navigator_routes.dart';
+import 'package:show_ttr/widgets/bottom_navigation/tab_navigators/my_club_navigator.dart';
+import 'package:show_ttr/widgets/bottom_navigation/tab_navigators/my_result_navigator.dart';
 import 'package:show_ttr/widgets/bottom_navigation/tab_item.dart';
-import 'package:show_ttr/widgets/login_page.dart';
+import 'package:show_ttr/widgets/search/search_screen.dart';
 import 'package:show_ttr/widgets/test_page.dart';
 
 class MainBottomNavigation extends StatefulWidget {
+
+  static void doLogout(BuildContext mainContext) {
+    Navigator.of(mainContext)
+        .popUntil(ModalRoute.withName(MainNavigatorRoutes.login));
+  }
+
   @override
-  State<StatefulWidget> createState() => MainBottomNavigationState();
+  State<StatefulWidget> createState() => _MainBottomNavigationState();
 }
 
-class MainBottomNavigationState extends State<MainBottomNavigation> {
+class _MainBottomNavigationState extends State<MainBottomNavigation> {
   var _currentTab = TabItem.myResult;
 
   // Navigator key used for nested navigation in the home page
@@ -55,7 +62,7 @@ class MainBottomNavigationState extends State<MainBottomNavigation> {
             // TODO: Stack not preserved when tabs are switched
             MyResultNavigator(navigatorKey: _myResultNavigatorKey),
             MyClubNavigator(navigatorKey: _myClubNavigatorKey),
-            const TestPage(),
+            const SearchPage(),
           ],
         ),
         bottomNavigationBar: MainBottomNavigationBar(

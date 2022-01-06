@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:show_ttr/models/Player.dart';
+import 'package:show_ttr/widgets/bottom_navigation/main_bottom_navigation.dart';
 import 'package:show_ttr/widgets/player/club_players_page.dart';
 import 'package:show_ttr/widgets/player/player_detail_page.dart';
-import 'package:show_ttr/widgets/player/results_page.dart';
+import 'package:show_ttr/widgets/result/results_page.dart';
 
 class MyClubNavigatorRoutes {
-  static const String root = ClubPlayerPage.routeName;
-  static const String player_detail = PlayerDetailPage.routeName;
-  static const String player_result = ResultPage.routeName;
+  static const root = ClubPlayerPage.routeName;
+  static const player_detail = PlayerDetailPage.routeName;
+  static const player_result = ResultPage.routeName;
 }
 
 class MyClubNavigatorRouter {
-  static Route? generateRoute(RouteSettings settings) {
+  static Route? generateRoute(RouteSettings settings, BuildContext mainContext) {
     switch (settings.name) {
       case MyClubNavigatorRoutes.root:
-        return MaterialPageRoute(builder: (_) => ClubPlayerPage());
+        return MaterialPageRoute(builder: (_) => ClubPlayerPage(doLogout: () {
+          MainBottomNavigation.doLogout(mainContext);
+        },));
       case MyClubNavigatorRoutes.player_detail:
         return MaterialPageRoute(
             builder: (_) => PlayerDetailPage(Player.examples[1]));
@@ -34,9 +37,10 @@ class MyClubNavigator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Navigator(
       key: navigatorKey,
-      // TODO: Need to change this and persist it somewhere!!!
       initialRoute: MyClubNavigatorRoutes.root,
-      onGenerateRoute: MyClubNavigatorRouter.generateRoute,
+      onGenerateRoute: (setting) {
+        return MyClubNavigatorRouter.generateRoute(setting, context);
+      },
     );
   }
 }

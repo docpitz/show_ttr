@@ -2,10 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:show_ttr/models/Player.dart';
+import 'package:show_ttr/widgets/bottom_navigation/main_bottom_navigation.dart';
 import 'package:show_ttr/widgets/bottom_navigation/main_navigator_routes.dart';
-import 'package:show_ttr/widgets/login_page.dart';
 import 'package:show_ttr/widgets/player/player_detail_page.dart';
-import 'package:show_ttr/widgets/player/results_page.dart';
+import 'package:show_ttr/widgets/result/results_page.dart';
 
 class MyResultNavigatorRoutes {
   static const String root = "/";
@@ -20,10 +20,10 @@ class MyResultNavigatorRouter {
       case MyResultNavigatorRoutes.root:
         return MaterialPageRoute(
           builder: (_) => PlayerDetailPage(
-            Player.examples[1],
+            Player.examples[5],
             showLogoutIcon: true,
             doLogout: () {
-              MyResultNavigatorRouter.doLogout(mainContext);
+              MainBottomNavigation.doLogout(mainContext);
             },
           ),
         );
@@ -43,11 +43,6 @@ class MyResultNavigatorRouter {
     }
 
     return null;
-  }
-
-  static void doLogout(BuildContext mainContext) {
-    Navigator.of(mainContext)
-        .popUntil(ModalRoute.withName(MainNavigatorRoutes.login));
   }
 }
 

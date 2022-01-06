@@ -6,6 +6,7 @@ import 'package:show_ttr/widgets/bottom_navigation/main_navigator_routes.dart';
 import 'package:show_ttr/widgets/login_page.dart';
 import 'package:show_ttr/widgets/player/player_detail_page_chart.dart';
 import 'package:show_ttr/widgets/player/player_detail_page_list.dart';
+import 'package:show_ttr/widgets/util/logout_button.dart';
 
 class PlayerDetailStateModel {
   int selectedValue = -1;
@@ -21,12 +22,13 @@ class PlayerDetailPage extends StatefulWidget {
   final bool showLogoutIcon;
   final VoidCallback? doLogout;
 
-  const PlayerDetailPage(this._player, {this.showLogoutIcon = false, this.doLogout, Key? key})
+  const PlayerDetailPage(this._player,
+      {this.showLogoutIcon = false, this.doLogout, Key? key})
       : super(key: key);
 
   @override
-  State<StatefulWidget> createState() =>
-      _PlayerDetailState(_player, showLogoutIcon: this.showLogoutIcon, doLogout: this.doLogout);
+  State<StatefulWidget> createState() => _PlayerDetailState(_player,
+      showLogoutIcon: this.showLogoutIcon, doLogout: this.doLogout);
 }
 
 class _PlayerDetailState extends State<PlayerDetailPage>
@@ -40,7 +42,8 @@ class _PlayerDetailState extends State<PlayerDetailPage>
   final bool showLogoutIcon;
   final VoidCallback? doLogout;
 
-  _PlayerDetailState(this._player, {required this.showLogoutIcon, this.doLogout}) {
+  _PlayerDetailState(this._player,
+      {required this.showLogoutIcon, this.doLogout}) {
     _detailPageList = PlayerDetailPageList(_stateModel);
     _detailPageChart = PlayerDetailPageChart(_stateModel);
   }
@@ -88,12 +91,7 @@ class _PlayerDetailState extends State<PlayerDetailPage>
       top: false,
       child: Scaffold(
         appBar: AppBar(
-          leading: !showLogoutIcon
-              ? null
-              : IconButton(
-                  icon: const Icon(Icons.logout),
-                  onPressed: doLogout
-                ),
+          leading: !showLogoutIcon ? null : LogoutButton(doLogout: doLogout),
           title: Text(_player!.firstname +
               " " +
               _player!.lastname +

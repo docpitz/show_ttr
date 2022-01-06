@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import 'package:show_ttr/widgets/player/player_detail_page.dart';
-import 'package:show_ttr/widgets/player/results_page.dart';
+import 'package:show_ttr/widgets/result/results_page.dart';
 
 class PlayerDetailPageList {
   bool _firstRun = false;
