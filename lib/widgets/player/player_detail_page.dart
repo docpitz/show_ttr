@@ -92,12 +92,22 @@ class _PlayerDetailState extends State<PlayerDetailPage>
       child: Scaffold(
         appBar: AppBar(
           leading: !showLogoutIcon ? null : LogoutButton(doLogout: doLogout),
-          title: Text(_player!.firstname +
-              " " +
-              _player!.lastname +
-              " (" +
-              _player!.points.toString() +
-              ")"),
+          title: Center(
+            child: Column(
+              children: [
+                Text(_player!.firstname +
+                    " " +
+                    _player!.lastname +
+                    " (" +
+                    _player!.points.toString() +
+                    ")"),
+                const Text(
+                  "TSV Hofolding",
+                  style: TextStyle(fontSize: 10),
+                )
+              ],
+            ),
+          ),
           actions: [
             IconButton(
               icon: const Icon(Icons.bar_chart),
