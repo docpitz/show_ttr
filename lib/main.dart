@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:show_ttr/widgets/bottom_navigation/main_navigator_routes.dart';
 import 'package:show_ttr/widgets/player/club_players_page.dart';
 import 'package:show_ttr/widgets/player/player_detail_page.dart';
 import 'package:show_ttr/widgets/player/results_page.dart';
@@ -20,13 +21,8 @@ class MyTischtennisApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
       ),
-      routes: {
-        LoginPage.routeName: (context) => LoginPage(),
-        ClubPlayerPage.routeName: (context) => ClubPlayerPage(),
-        PlayerDetailPage.routeName: (context) => PlayerDetailPage(),
-        TestPage.routeName: (context) => TestPage(),
-        ResultPage.routeName: (context) => ResultPage(),
-      },
+      initialRoute: MainNavigatorRoutes.login,
+      onGenerateRoute: MainNavigatorRouter.generateRoute,
     );
   }
 }

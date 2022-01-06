@@ -1,8 +1,9 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'package:show_ttr/models/Competition.dart';
 import 'package:show_ttr/models/Player.dart';
+import 'package:show_ttr/widgets/bottom_navigation/main_navigator_routes.dart';
+import 'package:show_ttr/widgets/login_page.dart';
 import 'package:show_ttr/widgets/player/player_detail_page_chart.dart';
 import 'package:show_ttr/widgets/player/player_detail_page_list.dart';
 
@@ -11,17 +12,21 @@ class PlayerDetailStateModel {
   bool shouldScrollTo = false;
   bool showChart = true;
   bool maxChart = false;
-  List<Competition> competitionsItems =
-  List.from(Competition.items[Random.secure().nextInt(3)]);
+  List<Competition> competitionsItems = List.from(Competition.items[1]);
 }
 
 class PlayerDetailPage extends StatefulWidget {
   static const routeName = '/playerDetail';
+  final Player? _player;
+  final bool showLogoutIcon;
+  final VoidCallback? doLogout;
 
-  const PlayerDetailPage({Key? key}) : super(key: key);
+  const PlayerDetailPage(this._player, {this.showLogoutIcon = false, this.doLogout, Key? key})
+      : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _PlayerDetailState();
+  State<StatefulWidget> createState() =>
+      _PlayerDetailState(_player, showLogoutIcon: this.showLogoutIcon, doLogout: this.doLogout);
 }
 
 class _PlayerDetailState extends State<PlayerDetailPage>
@@ -31,8 +36,11 @@ class _PlayerDetailState extends State<PlayerDetailPage>
   final PlayerDetailStateModel _stateModel = PlayerDetailStateModel();
   late PlayerDetailPageList _detailPageList;
   late PlayerDetailPageChart _detailPageChart;
+  Player? _player;
+  final bool showLogoutIcon;
+  final VoidCallback? doLogout;
 
-  _PlayerDetailState() {
+  _PlayerDetailState(this._player, {required this.showLogoutIcon, this.doLogout}) {
     _detailPageList = PlayerDetailPageList(_stateModel);
     _detailPageChart = PlayerDetailPageChart(_stateModel);
   }
@@ -70,30 +78,34 @@ class _PlayerDetailState extends State<PlayerDetailPage>
 
   @override
   Widget build(BuildContext context) {
-    
     return _playerDetailPage(context);
   }
 
   Widget _playerDetailPage(BuildContext context) {
-    final player = ModalRoute.of(context)!.settings.arguments as Player;
+    _player ??= ModalRoute.of(context)!.settings.arguments as Player;
+
     return SafeArea(
       top: false,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(player.firstname +
+          leading: !showLogoutIcon
+              ? null
+              : IconButton(
+                  icon: const Icon(Icons.logout),
+                  onPressed: doLogout
+                ),
+          title: Text(_player!.firstname +
               " " +
-              player.lastname +
+              _player!.lastname +
               " (" +
-              player.points.toString() +
+              _player!.points.toString() +
               ")"),
           actions: [
-            TextButton(
+            IconButton(
+              icon: const Icon(Icons.bar_chart),
               onPressed: () {
                 switchChartOnOff();
               },
-              style: TextButton.styleFrom(
-                  primary: Theme.of(context).colorScheme.onPrimary),
-              child: const Text("Chart"),
             )
           ],
         ),
@@ -111,7 +123,9 @@ class _PlayerDetailState extends State<PlayerDetailPage>
                       curve: Curves.decelerate,
                       duration: const Duration(milliseconds: 500),
                       height: _stateModel.showChart
-                          ? (_stateModel.maxChart ? constraints.maxHeight - 65 : 200)
+                          ? (_stateModel.maxChart
+                              ? constraints.maxHeight - 65
+                              : 200)
                           : 75,
                       child: Card(
                         child: Padding(
@@ -132,7 +146,4 @@ class _PlayerDetailState extends State<PlayerDetailPage>
       ),
     );
   }
-
-
-
 }

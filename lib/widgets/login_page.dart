@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:show_ttr/widgets/bottom_navigation/main_navigator_routes.dart';
 import 'package:show_ttr/widgets/player/club_players_page.dart';
 import 'package:show_ttr/widgets/test_page.dart';
 
 class LoginPage extends StatelessWidget {
 
-  static const routeName = '/';
+  static const routeName = '/login';
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () => {
-                        Navigator.of(context).pushNamed(ClubPlayerPage.routeName)
+                        Navigator.of(context).pushNamed(MainNavigatorRoutes.loggedIn)
                       },
                       child: const Text(
                         'Anmelden',
