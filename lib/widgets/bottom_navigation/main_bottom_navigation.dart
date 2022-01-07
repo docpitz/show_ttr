@@ -5,7 +5,6 @@ import 'package:show_ttr/widgets/bottom_navigation/tab_navigators/my_club_naviga
 import 'package:show_ttr/widgets/bottom_navigation/tab_navigators/my_result_navigator.dart';
 import 'package:show_ttr/widgets/bottom_navigation/tab_item.dart';
 import 'package:show_ttr/widgets/search/search_screen.dart';
-import 'package:show_ttr/widgets/test_page.dart';
 
 class MainBottomNavigation extends StatefulWidget {
 
@@ -13,6 +12,8 @@ class MainBottomNavigation extends StatefulWidget {
     Navigator.of(mainContext)
         .popUntil(ModalRoute.withName(MainNavigatorRoutes.login));
   }
+
+  const MainBottomNavigation({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _MainBottomNavigationState();
@@ -59,7 +60,6 @@ class _MainBottomNavigationState extends State<MainBottomNavigation> {
         body: IndexedStack(
           index: _currentTab.index,
           children: [
-            // TODO: Stack not preserved when tabs are switched
             MyResultNavigator(navigatorKey: _myResultNavigatorKey),
             MyClubNavigator(navigatorKey: _myClubNavigatorKey),
             const SearchPage(),

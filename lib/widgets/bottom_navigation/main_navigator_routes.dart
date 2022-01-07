@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:show_ttr/widgets/bottom_navigation/main_bottom_navigation.dart';
 import 'package:show_ttr/widgets/login_page.dart';
-import 'package:show_ttr/widgets/result/results_page.dart';
+import 'package:show_ttr/widgets/test_page.dart';
 
 class MainNavigatorRoutes {
   static const String login = "/";
   static const String loggedIn = '/loggedIn';
-  static const String result = '/result';
+  static const String test = '/test';
 }
 
 class MainNavigatorRouter {
@@ -23,10 +23,10 @@ class MainNavigatorRouter {
           builder: (_) => MainBottomNavigation(),
           settings: const RouteSettings(name: MainNavigatorRoutes.loggedIn),
         );
-      case MainNavigatorRoutes.result:
+      case MainNavigatorRoutes.test:
         return MaterialPageRoute(
-          builder: (_) => ResultPage(),
-          settings: const RouteSettings(name: ResultPage.routeName),
+          builder: (_) => const TestPage(),
+          settings: const RouteSettings(name: TestPage.routeName),
         );
     }
     return null;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TestPage extends StatelessWidget {
-  static const routeName = "/testPage";
+  static const routeName = "/test";
 
   const TestPage({Key? key}) : super(key: key);
 
