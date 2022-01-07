@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:show_ttr/widgets/bottom_navigation/main_navigator_routes.dart';
-import 'package:show_ttr/widgets/player/club_players_page.dart';
-import 'package:show_ttr/widgets/player/player_detail_page.dart';
-import 'package:show_ttr/widgets/result/results_page.dart';
-import 'package:show_ttr/widgets/test_page.dart';
-import 'widgets/login_page.dart';
+
 
 void main() {
   runApp(const MyTischtennisApp());

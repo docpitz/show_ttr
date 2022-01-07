@@ -27,7 +27,7 @@ class _SearchPageState extends State<SearchPage> {
           bottom: const TabBar(
             tabs: [
               Tab(text: "Name"),
-              Tab(text: "Kritieren"),
+              Tab(text: "Kriterien"),
             ],
           ),
         ),

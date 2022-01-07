@@ -20,7 +20,7 @@ class MainNavigatorRouter {
         );
       case MainNavigatorRoutes.loggedIn:
         return MaterialPageRoute(
-          builder: (_) => MainBottomNavigation(),
+          builder: (_) => const MainBottomNavigation(),
           settings: const RouteSettings(name: MainNavigatorRoutes.loggedIn),
         );
       case MainNavigatorRoutes.test:

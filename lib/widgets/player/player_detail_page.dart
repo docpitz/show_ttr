@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:show_ttr/models/Competition.dart';
 import 'package:show_ttr/models/Player.dart';
-import 'package:show_ttr/widgets/bottom_navigation/main_navigator_routes.dart';
-import 'package:show_ttr/widgets/login_page.dart';
 import 'package:show_ttr/widgets/player/player_detail_page_chart.dart';
 import 'package:show_ttr/widgets/player/player_detail_page_list.dart';
 import 'package:show_ttr/widgets/util/logout_button.dart';

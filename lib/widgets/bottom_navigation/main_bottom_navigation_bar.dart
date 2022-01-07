@@ -4,22 +4,28 @@ import 'package:show_ttr/widgets/bottom_navigation/tab_item.dart';
 class MainBottomNavigationBar extends StatelessWidget {
   final TabItem currentTab;
   final ValueChanged<TabItem> onSelectTab;
+  final VoidCallback? onFlip;
 
-  const MainBottomNavigationBar({Key? key, required this.currentTab, required this.onSelectTab}) : super(key: key);
+  const MainBottomNavigationBar(
+      {Key? key,
+      required this.currentTab,
+      required this.onSelectTab,
+      this.onFlip})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final selectedItemColor = Theme.of(context).primaryColor;
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-      items: [
-        _buildItem(TabItem.myResult, selectedItemColor),
-        _buildItem(TabItem.myClub, selectedItemColor),
-        _buildItem(TabItem.search, selectedItemColor),
-      ],
-      onTap: (index) => onSelectTab(
-        TabItem.values[index],
-      ),
+      items: TabItem.values.map((e) => _buildItem(e, selectedItemColor)).toList(),
+      onTap: (index) {
+        if (index < 3) {
+          onSelectTab(TabItem.values[index]);
+        } else {
+          onFlip!();
+        }
+      },
       currentIndex: currentTab.index,
       selectedItemColor: selectedItemColor,
     );

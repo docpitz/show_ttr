@@ -7,8 +7,8 @@ import 'package:show_ttr/widgets/result/results_page.dart';
 
 class MyClubNavigatorRoutes {
   static const root = ClubPlayerPage.routeName;
-  static const player_detail = PlayerDetailPage.routeName;
-  static const player_result = ResultPage.routeName;
+  static const playerDetail = PlayerDetailPage.routeName;
+  static const playerResult = ResultPage.routeName;
 }
 
 class MyClubNavigatorRouter {
@@ -18,10 +18,10 @@ class MyClubNavigatorRouter {
         return MaterialPageRoute(builder: (_) => ClubPlayerPage(doLogout: () {
           MainBottomNavigation.doLogout(mainContext);
         },));
-      case MyClubNavigatorRoutes.player_detail:
+      case MyClubNavigatorRoutes.playerDetail:
         return MaterialPageRoute(
             builder: (_) => PlayerDetailPage(Player.examples[1]));
-      case MyClubNavigatorRoutes.player_result:
+      case MyClubNavigatorRoutes.playerResult:
         return MaterialPageRoute(builder: (_) => ResultPage());
     }
     return null;
@@ -29,7 +29,7 @@ class MyClubNavigatorRouter {
 }
 
 class MyClubNavigator extends StatelessWidget {
-  MyClubNavigator({required this.navigatorKey});
+  const MyClubNavigator({Key? key, required this.navigatorKey}) : super(key: key);
 
   final GlobalKey<NavigatorState>? navigatorKey;
 

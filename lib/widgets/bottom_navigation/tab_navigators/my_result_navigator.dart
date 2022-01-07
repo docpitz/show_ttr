@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:show_ttr/models/Player.dart';
 import 'package:show_ttr/widgets/bottom_navigation/main_bottom_navigation.dart';
-import 'package:show_ttr/widgets/bottom_navigation/main_navigator_routes.dart';
 import 'package:show_ttr/widgets/player/player_detail_page.dart';
 import 'package:show_ttr/widgets/result/results_page.dart';
 
@@ -47,7 +46,7 @@ class MyResultNavigatorRouter {
 }
 
 class MyResultNavigator extends StatelessWidget {
-  MyResultNavigator({required this.navigatorKey});
+  const MyResultNavigator({Key? key, required this.navigatorKey}) : super(key: key);
 
   final GlobalKey<NavigatorState>? navigatorKey;
 
