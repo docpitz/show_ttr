@@ -81,12 +81,7 @@ class _PlayerDetailState extends State<PlayerDetailPage>
 
   @override
   Widget build(BuildContext context) {
-    return _playerDetailPage(context);
-  }
-
-  Widget _playerDetailPage(BuildContext context) {
     _player ??= ModalRoute.of(context)!.settings.arguments as Player;
-
     return SafeArea(
       top: false,
       child: Scaffold(
