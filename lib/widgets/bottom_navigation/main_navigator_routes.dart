@@ -14,7 +14,7 @@ class MainNavigatorRouter {
     switch (settings.name) {
       case MainNavigatorRoutes.login:
         return MaterialPageRoute(
-          builder: (_) => LoginPage(),
+          builder: (_) => const LoginPage(),
           settings: const RouteSettings(name: MainNavigatorRoutes.login),
           fullscreenDialog: true,
         );

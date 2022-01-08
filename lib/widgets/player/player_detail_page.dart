@@ -25,8 +25,7 @@ class PlayerDetailPage extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _PlayerDetailState(_player,
-      showLogoutIcon: this.showLogoutIcon, doLogout: this.doLogout);
+  State<StatefulWidget> createState() => _PlayerDetailState();
 }
 
 class _PlayerDetailState extends State<PlayerDetailPage>
@@ -36,12 +35,8 @@ class _PlayerDetailState extends State<PlayerDetailPage>
   final PlayerDetailStateModel _stateModel = PlayerDetailStateModel();
   late PlayerDetailPageList _detailPageList;
   late PlayerDetailPageChart _detailPageChart;
-  Player? _player;
-  final bool showLogoutIcon;
-  final VoidCallback? doLogout;
 
-  _PlayerDetailState(this._player,
-      {required this.showLogoutIcon, this.doLogout}) {
+  _PlayerDetailState() {
     _detailPageList = PlayerDetailPageList(_stateModel);
     _detailPageChart = PlayerDetailPageChart(_stateModel);
   }
@@ -79,20 +74,21 @@ class _PlayerDetailState extends State<PlayerDetailPage>
 
   @override
   Widget build(BuildContext context) {
-    _player ??= ModalRoute.of(context)!.settings.arguments as Player;
+    Player? player = widget._player;
+    player ??= ModalRoute.of(context)!.settings.arguments as Player;
     return SafeArea(
       top: false,
       child: Scaffold(
         appBar: AppBar(
-          leading: !showLogoutIcon ? null : LogoutButton(doLogout: doLogout),
+          leading: !widget.showLogoutIcon ? null : LogoutButton(doLogout: widget.doLogout),
           title: Center(
             child: Column(
               children: [
-                Text(_player!.firstname +
+                Text(player.firstname +
                     " " +
-                    _player!.lastname +
+                    player.lastname +
                     " (" +
-                    _player!.points.toString() +
+                    player.points.toString() +
                     ")"),
                 const Text(
                   "TSV Hofolding",

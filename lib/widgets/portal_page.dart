@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:show_ttr/widgets/bottom_navigation/main_bottom_navigation.dart';
 import 'package:show_ttr/widgets/util/logout_button.dart';
