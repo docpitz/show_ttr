@@ -1,12 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:show_ttr/widgets/bottom_navigation/main_bottom_navigation.dart';
 import 'package:show_ttr/widgets/util/logout_button.dart';
 import 'package:show_ttr/widgets/util/hex_color.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-enum PortalTabItem {
-  topsport, panorama, training, community
-}
+enum PortalTabItem { topsport, panorama, training, community }
 
 const Map<PortalTabItem, String> tabName = {
   PortalTabItem.topsport: 'Top-Sport',
@@ -39,12 +39,14 @@ class PortalPage extends StatefulWidget {
 }
 
 class _PortalPageState extends State<PortalPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   PortalTabItem _currentTab = PortalTabItem.topsport;
   late WebViewController _webViewController;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         leading: LogoutButton(
           doLogout: () {
@@ -58,7 +60,7 @@ class _PortalPageState extends State<PortalPage> {
         initialUrl: _tabUrl[_currentTab],
         onWebViewCreated: (controller) {
           _webViewController = controller;
-        }
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -68,16 +70,27 @@ class _PortalPageState extends State<PortalPage> {
         onTap: (index) {
           setState(() {
             _currentTab = PortalTabItem.values[index];
-            if (_currentTab != PortalTabItem.community) {
-              _webViewController.loadUrl(_tabUrl[_currentTab]!);
-            }
           });
           if (_currentTab == PortalTabItem.community) {
             widget.onFlip!();
+          } else {
+            _webViewController.loadUrl(_tabUrl[_currentTab]!);
           }
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
   }
 
   BottomNavigationBarItem _buildItem(PortalTabItem tabItem) {

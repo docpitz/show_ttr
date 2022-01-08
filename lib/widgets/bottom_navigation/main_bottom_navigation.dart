@@ -13,7 +13,6 @@ class MainBottomNavigation extends StatefulWidget {
     Navigator.of(mainContext)
         .popUntil(ModalRoute.withName(MainNavigatorRoutes.login));
   }
-
   const MainBottomNavigation({Key? key}) : super(key: key);
 
   @override
@@ -28,6 +27,8 @@ class _MainBottomNavigationState extends State<MainBottomNavigation> {
       GlobalKey<NavigatorState>(debugLabel: "MyResultNavigatorKey");
   final _myClubNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: "MyClubNavigatorKey");
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final pageFlipKey = GlobalKey<PageFlipBuilderState>();
 
@@ -63,6 +64,7 @@ class _MainBottomNavigationState extends State<MainBottomNavigation> {
           return true;
         },
         child: Scaffold(
+          key: _scaffoldKey,
           body: IndexedStack(
             index: _currentTab.index,
             children: [
